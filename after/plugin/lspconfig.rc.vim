@@ -48,6 +48,23 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     }
   }
+
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- setup clangd independently
+require'lspconfig'.clangd.setup {
+    on_attach = on_attach,
+    cmd = {
+            "clangd",
+            "--background-index",
+            "--suggest-missing-includes",
+            '--query-driver="/usr/local/opt/gcc-arm-none-eabi-8-2019-q3-update/bin/arm-none-eabi-gcc"'
+        },
+        filetypes = {"c", "cpp", "objc", "objcpp"},
+}
+
+
 end
 EOF
 
